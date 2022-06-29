@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/style/root">
-    <title>Register</title>
+    <link rel="stylesheet" href="/style/root">
+    <title>Change pass</title>
 </head>
 <body>
-    <form action="/create" method="post">
+    <form action="/confirm" method="post">
         <fieldset style="border: none;">
-            <h1>Register</h1>
             <!--Input user-->
             <label>Input your user</label>
             <br>
@@ -20,17 +19,22 @@
             <br>
 
             <!--Input pass-->
-            <label>Input your pass</label>
+            <label>Input your new pass</label>
             <br>
-            <input type="password" name="pass" id="pass1" placeholder="Pass" onclick="testPass()" required>
+            <input type="password" name="pass1" id="pass1" placeholder="Pass" onclick="testPass()" required>
+
+            <!--Input pass-->
+            <label>Confirm your pass</label>
+            <br>
+            <input type="password" name="pass2" placeholder="Pass" required>
 
             <!--Button submit-->
-            <button type="submit">Submit</input>
+            <button type="submit">Submit</button>
         </fieldset>
     </form>
 
     <div id="result" style="font-size: 15px;">
-
+        
     </div>
 
     <script src="/scriptjs"></script>

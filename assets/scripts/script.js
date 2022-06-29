@@ -14,13 +14,13 @@ app.use(express.urlencoded({ extended: true })); // usado para passarmos os resu
 
 app.get('/', (req, res) => {
     // send - envia para a resposta HTTP algo que você desejar
-    res.sendFile('/../../index.html');
+    res.sendFile(path.join(__dirname + '/../../index.html'));
 });
 
-app.get('/form', (req, res) => {
+app.post('/form', (req, res) => {
     if(!req.body.user || !req.body.pass) {
         return res.send("Os campos user/pass não devem estar vazios");
-    };
+    }
 
     for (let index = 0; index < users.length; index++) {
         if(req.body.user == users[index].name && req.body.pass == users[index].pass) {
@@ -47,20 +47,68 @@ app.post('/create', (req, res) => {
             return res.send('Usuário já existe')
         }
     };
-
-    res.redirect('/home')
-
+    res.send("<script>if (!window.alert('Usuario cadastrado com sucesso!')) {window.location.href='/'}</script>")
+    
     users.push({ "name" : req.body.user, "pass" : req.body.pass });
     let usuarios = JSON.stringify(users);
-    fs.writeFile(path.join(__dirname + '/../json/users.json'), usuarios, function (err){
+    fs.writeFile(path.join(__dirname + '/../json/users.json'), usuarios, (err) => {
         if (err) {
             throw err;
         }
     });
 });
 
+app.get('/changePass', (req, res) => {
+    return res.sendFile(path.join(__dirname + '/../html/changePass.html'))
+});
+
+app.post('/confirm', (req, res) => {
+    if(!req.body.user || !req.body.pass1 || !req.body.pass2) {
+        return res.send("Os campos user/pass não devem estar vazios");
+    };
+
+    for (let index = 0; index < users.length; index++) {
+        if(req.body.pass1 == req.body.pass2) {
+            if(req.body.user == users[index].name) {
+                users[index].pass = req.body.pass1
+                let usuarios = JSON.stringify(users);
+                fs.writeFile(path.join(__dirname + '/../json/users.json'), usuarios, (err) => {
+                    if (err) {
+                        throw err;
+                    }
+                });
+                return res.send("<script>if (!window.alert('Senha alterada com sucesso!')) {window.location.href='/'}</script>")
+            }
+        } else {
+            return res.send("<script>if (!window.alert('As senhas não conferem!')) {window.location.href='/changePass'}</script>")
+        }
+        return res.send("Usuário não encontrado!")
+    };
+});
+
 app.get('/home', (req, res) => {
     return res.sendFile(path.join(__dirname + '/../html/home.html'))
+});
+
+app.get('/getCred', (req, res) => {
+    return res.sendFile(path.join(__dirname + '/../scripts/getCred.js'))
+});
+
+app.get('/setCred', (req, res) => {
+    return res.sendFile(path.join(__dirname + '/../scripts/setCred.js'))
+});
+
+
+app.get('/style/root', (req, res) => {
+    return res.sendFile(path.join(__dirname + '/../css/style.css'))
+});
+
+app.get('/style/home', (req, res) => {
+    return res.sendFile(path.join(__dirname + '/../css/home_style.css'))
+});
+
+app.get('/scriptjs', (req, res) => {
+    res.sendFile(path.join(__dirname + '/app.js'))
 });
 
 app.listen(process.env.PORT || 3000, function(err){

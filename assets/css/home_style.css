@@ -15,3 +15,17 @@ body {
     font-family: 'Roboto', sans-serif;
     font-size: 1.2rem;
 }
+
+div {
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+
+div > a {
+    color: white;
+    font-size: 15px;
+    margin: 0 10px;
+}

@@ -9,6 +9,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     width: 100%;
     height: 90vh;
     font-family: 'Roboto', sans-serif;
@@ -87,7 +88,10 @@ button:hover::before {
 
 div {
     padding: 10px 0;
-    text-align: right;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
 }
 
 div > a {
