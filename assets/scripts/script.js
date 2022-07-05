@@ -11,6 +11,13 @@ const path = require('path'); // utilizado na renderização de uma página/file
 // res - é a interface de resposta HTTP, você pode enviar cabeçalhos e o corpo para o navegador
 
 app.use(express.urlencoded({ extended: true })); // usado para passarmos os resultados que recebemos do post
+/*A opção "extended" diz para o express qual biblioteca ele deve utilizar para fazer o parsing do conteúdo das requisições que ele recebe.
+Quando extended : true vai utilizar a biblioteca qs e quando for false ele vai utilizar a biblioteca querystring.
+
+A diferença entre elas é que a biblioteca qs permite o aninhamento de objetos (nested objects), que é praticamente como o JSON trabalha:
+
+// {"animal":{"tipo":"cachorro","raca":"vira-lata","idade":3}}
+*/
 
 app.get('/', (req, res) => {
     // send - envia para a resposta HTTP algo que você desejar
